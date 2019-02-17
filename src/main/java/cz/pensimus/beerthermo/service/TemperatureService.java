@@ -5,7 +5,8 @@ import cz.pensimus.beerthermo.entity.Temperature;
 import cz.pensimus.beerthermo.repository.SensorRepository;
 import cz.pensimus.beerthermo.repository.TempSensorRepository;
 import cz.pensimus.beerthermo.repository.TemperatureRepository;
-import cz.pensimus.beerthermo.schedule.ReadTemperatureJob;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,11 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
 public class TemperatureService {
 
-    private static final Logger LOG = Logger.getLogger(TemperatureService.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(TemperatureService.class);
 
     @Autowired
     private TemperatureRepository temperatureRepository;
