@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class TemperatureService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TemperatureService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TemperatureService.class);
 
     @Autowired
     private TemperatureRepository temperatureRepository;
@@ -36,14 +36,14 @@ public class TemperatureService {
     @Transactional
     public void fetchTemperature() {
         for (Sensor sensor : sensorRepository.findAll()) {
-            LOG.info("Reading temperature from sensor " + sensor.getName());
+            LOGGER.info("Reading temperature from sensor {}.", sensor.getName());
             BigDecimal temperature = tempSensorRepository.readTemperature(sensor.getIdentification());
             Temperature tempEntity = new Temperature();
             tempEntity.setValue(temperature);
             tempEntity.setCreated(new Date());
             tempEntity.setSensor(sensor);
             temperatureRepository.save(tempEntity);
-            LOG.info("Reading temperature finished.");
+            LOGGER.info("Reading temperature finished.");
         }
     }
 }
