@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <body>
+        <h1>ABC</h1>
+
+        <ul>
+            <li th:each="temp: ${temps}">
+                <th:block th:text="${temp.id}"/>
+                -
+                <th:block th:text="${temp.value}"/>
+            </li>
+        </ul>
+    </body>
+</html>
