@@ -9,17 +9,17 @@ import javax.persistence.Id;
 public class Sensor {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    private Integer id;
 
     private String name;
 
     private String identification;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -37,5 +37,14 @@ public class Sensor {
 
     public void setIdentification(String identification) {
         this.identification = identification;
+    }
+
+    @Override
+    public String toString() {
+        return "Sensor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", identification='" + identification + '\'' +
+                '}';
     }
 }
