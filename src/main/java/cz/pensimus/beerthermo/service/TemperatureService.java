@@ -8,8 +8,10 @@ import cz.pensimus.beerthermo.repository.TemperatureRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -44,6 +46,21 @@ public class TemperatureService {
             tempEntity.setSensor(sensor);
             temperatureRepository.save(tempEntity);
             LOGGER.info("Reading temperature finished.");
+        }
+    }
+
+    @PostConstruct
+    public void initSensors() {
+        for (String sensor : tempSensorRepository.getSensors()) {
+            Sensor sensorExample = new Sensor();
+            sensorExample.setIdentification(sensor);
+            List<Sensor> sensorList = sensorRepository.findAll(Example.of(sensorExample));
+            if (sensorList.isEmpty()) {
+                Sensor newSensor = new Sensor();
+                newSensor.setIdentification(sensor);
+                newSensor.setName(sensor);
+                sensorRepository.save(newSensor);
+            }
         }
     }
 }
